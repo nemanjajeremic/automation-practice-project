@@ -6,7 +6,9 @@ exports.config = {
   framework: 'jasmine',
   baseUrl: 'http://automationpractice.com/index.php',
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  specs: ['./tests/home/home.spec.js'],
+  specs: [//'./tests/home/home.spec.js',
+    './tests/login/login.spec.js'
+  ],
   multiCapabilities: [{
     browserName: 'chrome'
   }],
@@ -19,7 +21,7 @@ exports.config = {
     jasmine.getEnv().addReporter(new SpecReporter({
       spec: {
 
-        displayStacktrace: true,
+        displayStacktrace: false,
         displayFailuresSummary: true,
         displayFailuredSpec: true,
         displaySuiteNumber: true,

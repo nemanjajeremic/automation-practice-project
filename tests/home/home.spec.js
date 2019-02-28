@@ -20,12 +20,22 @@ describe('My store - home page', function () {
         expect(home.bestSellerTab.getAttribute('class')).toEqual('active');
     });
 
-    fit('Add product to cart and continue shopping', function () {
-     
+    it('Add product to cart and continue shopping', function () {
+
         home.addToCart(5);
         home.waitUntilVisible(home.cartModal, 30000);
         home.continueShoppingButton.click();
-        expect(home.shoppingCartQuantity.getText()).toEqual(home.productsInCart);
+        expect(home.shoppingCartQuantity.getText()).toEqual('1');
+
         browser.sleep(2000);
-    });``
+    });
+
+    it('Shopping cart modal closes after clicking on "continue shopping" button', function () {
+        home.addToCart(5);
+        home.waitUntilVisible(home.cartModal, 30000);
+        home.continueShoppingButton.click();
+        browser.sleep(300)
+        expect(home.cartModal.isDisplayed()).toBe(false);
+    });
+
 })

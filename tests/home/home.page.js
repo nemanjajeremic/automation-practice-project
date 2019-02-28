@@ -2,6 +2,7 @@ let homePage = function () {
     this.productsInCart = '';
     this.productNumber = 0;
 
+    this.signInButton = element(by.css('a[class="login"]'));
     this.searchInput = element(by.id('search_query_top'));
     this.searchButton = element(by.css('button[class*="button-search"]'));
     this.alertWarning = element(by.css('p[class="alert alert-warning"]'));
@@ -22,14 +23,13 @@ let homePage = function () {
 
     this.addToCart = function (productIndex) {
         //keep track of products added and convert the value to string
-        this.productNumber += 1;
-        this.productsInCart = this.productNumber.toString();
+       /*  this.productNumber += 1;
+        this.productsInCart = this.productNumber.toString(); */
         //hover over product
         let currentProduct = this.productContainers.get(productIndex);
         browser.actions().mouseMove(currentProduct).perform();
         //find "add to cart" button and click on it
         currentProduct.element(by.css('div[class*="button-container"] a[class="button ajax_add_to_cart_button btn btn-default"] span')).click();
-
     }
 
 }
