@@ -13,11 +13,13 @@ exports.config = {
 
   onPrepare: function () {
     browser.driver.manage().window().maximize();
+    browser.ignoreSynchronization = true;
+
     browser.waitForAngularEnabled(false);
     jasmine.getEnv().addReporter(new SpecReporter({
       spec: {
-        /* 
-                displayStacktrace: true, */
+
+        displayStacktrace: true,
         displayFailuresSummary: true,
         displayFailuredSpec: true,
         displaySuiteNumber: true,
