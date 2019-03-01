@@ -6,8 +6,10 @@ exports.config = {
   framework: 'jasmine',
   baseUrl: 'http://automationpractice.com/index.php',
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  specs: [//'./tests/home/home.spec.js',
-    './tests/login/login.spec.js'
+  specs: ['./tests/home/home.spec.js',
+    './tests/login/login.spec.js',
+    './tests/cart/cart.spec.js',
+    './tests/footer/footer.spec.js'
   ],
   multiCapabilities: [{
     browserName: 'chrome'

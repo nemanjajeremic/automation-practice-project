@@ -1,13 +1,13 @@
 let loginPage = require('./login.page');
 let homePage = require('../home/home.page');
+let globalPage = require('../global/global.page.js');
 
 describe('My store - login page', function () {
     /*    let EC = ExpectedConditions; */
     browser.ignoreSynchronization = true;
     let login = new loginPage();
     let home = new homePage();
-    let emailAddressCredential = 'n.jeremic@levi9.com';
-    let passwordCredential = 'nemanja123';
+    let global = new globalPage();
 
     it('Go to login page', function () {
         browser.get(browser.baseUrl);
@@ -34,14 +34,16 @@ describe('My store - login page', function () {
     });
 
     it('Redirect to account page after successful login', function () {
-        login.loginEmailInput.clear();
-        login.loginPasswordInput.clear();
-        login.loginEmailInput.sendKeys(emailAddressCredential);
-        login.loginPasswordInput.sendKeys(passwordCredential);
-        login.signInButton.click();
+        login.logIn();
         //TODO
         //put pageheading into account page object
         expect(login.pageHeading.getText()).toEqual('MY ACCOUNT');
+    });
+
+    it('Log out', function () {
+        browser.sleep(3000);
+        login.signOutButton.click();
+        expect(login.signOutButton.isPresent()).toBe(false);
     });
 
 })

@@ -1,9 +1,12 @@
 let homePage = require('./home.page.js');
+let globalPage = require('../global/global.page.js');
 
 describe('My store - home page', function () {
     /*    let EC = ExpectedConditions; */
     browser.ignoreSynchronization = true;
     let home = new homePage();
+    let global = new globalPage();
+    let EC = protractor.ExpectedConditions;
 
     beforeEach(function () {
         browser.get(browser.baseUrl);
@@ -20,22 +23,9 @@ describe('My store - home page', function () {
         expect(home.bestSellerTab.getAttribute('class')).toEqual('active');
     });
 
-    it('Add product to cart and continue shopping', function () {
+    /* it('Slider functionality', async function () {
+       console.log()
 
-        home.addToCart(5);
-        home.waitUntilVisible(home.cartModal, 30000);
-        home.continueShoppingButton.click();
-        expect(home.shoppingCartQuantity.getText()).toEqual('1');
-
-        browser.sleep(2000);
-    });
-
-    it('Shopping cart modal closes after clicking on "continue shopping" button', function () {
-        home.addToCart(5);
-        home.waitUntilVisible(home.cartModal, 30000);
-        home.continueShoppingButton.click();
-        browser.sleep(300)
-        expect(home.cartModal.isDisplayed()).toBe(false);
-    });
+    }); */
 
 })
