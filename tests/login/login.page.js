@@ -6,6 +6,10 @@ let loginPage = function () {
     
     let emailAddressCredential = 'n.jeremic@levi9.com';
     let passwordCredential = 'nemanja123';
+    
+    this.createAccountButton = element(by.id('SubmitCreate'));
+    this.createAccountEmailError = element(by.id('create_account_error'));
+    this.emailAdressInput = element(by.id('email_create'));
 
     this.pageHeading = element(by.css('h1[class="page-heading"]'));
     this.loginEmailInput = element(by.id('email'));

@@ -13,6 +13,7 @@ describe('My store - footer', function () {
 
     it('Categories links redirection', function () {
         browser.get(browser.baseUrl);
+        login.signOutButton.click();
         footer.categoriesWomenButton.click();
         expect(browser.getCurrentUrl()).toEqual('http://automationpractice.com/index.php?id_category=3&controller=category');
     });
@@ -46,6 +47,7 @@ describe('My store - footer', function () {
     it('My account links for guest user', function() {
         browser.get(browser.baseUrl);
         footer.myAccountOrdersButton.click();
+        global.waitUntilVisible(login.pageHeading, 150000)
         expect(login.pageHeading.getText()).toEqual('AUTHENTICATION');
         browser.navigate().back();
         footer.myAccountCreditSlipsButton.click();
