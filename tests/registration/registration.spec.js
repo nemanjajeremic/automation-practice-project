@@ -12,6 +12,7 @@ describe('My store - login page', function () {
 
     let firstNameValue = 'Nemanja';
     let lastNameValue = 'Jeremic';
+
     it('Create account - invalid', function () {
         browser.get(browser.baseUrl);
         home.signInButton.click();
@@ -23,7 +24,10 @@ describe('My store - login page', function () {
     it('Create account - happy flow', function () {
         //go to create account page
         /*  home.signInButton.click(); */
-        login.emailAdressInput.sendKeys(`nemanja${Math.floor(Math.random()*90000) + 1000000}@nemanja.com`)
+        login.emailAdressInput.sendKeys(registration.randomEmailValue);
+        console.log(`Created account with the following credentials:
+        email: ${registration.randomEmailValue}
+        password: nemanja123 `);
         login.createAccountButton.click();
         global.waitUntilVisible(registration.radioGenderMale, 15000);
         //enter personal info

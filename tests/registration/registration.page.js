@@ -24,6 +24,7 @@ let registrationPage = function () {
    this.inputAddressAlias = element(by.id('alias'));
 
    this.submitRegistrationButton = element(by.id('submitAccount'));
+   this.randomEmailValue = `nemanja${Math.floor(Math.random()*90000) + 1000000}@nemanja.com`;
 
 }
 

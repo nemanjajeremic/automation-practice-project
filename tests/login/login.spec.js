@@ -6,7 +6,7 @@ describe('My store - login page', function () {
     browser.ignoreSynchronization = true;
     let login = new loginPage();
     let home = new homePage();
-    let emailAddressCredential = 'n.jeremic@levi9.com';
+    let emailAddressCredential = 'nemanja1025485@nemanja.com';
     let passwordCredential = 'nemanja123';
 
     it('Go to login page', function () {
@@ -22,20 +22,19 @@ describe('My store - login page', function () {
     });
 
     it('Error message on empty email', function () {
-        login.loginEmailInput.sendKeys('nemanja@levi9.com');
+        login.loginEmailInput.sendKeys(emailAddressCredential);
         login.signInButton.click();
         expect(login.errorAlert.getText()).toContain('error');
     });
 
     it('Error message on empty password', function () {
         login.loginEmailInput.clear();
-        login.loginPasswordInput.sendKeys('nemanja@levi9.com');
+        login.loginPasswordInput.sendKeys(passwordCredential);
         expect(login.errorAlert.getText()).toContain('error');
     });
 
     it('Redirect to account page after successful login', function () {
-        login.loginEmailInput.clear();
-        login.loginPasswordInput.clear();
+        login.clearInput();
         login.loginEmailInput.sendKeys(emailAddressCredential);
         login.loginPasswordInput.sendKeys(passwordCredential);
         login.signInButton.click();
