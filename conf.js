@@ -3,9 +3,10 @@ let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 let Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
 exports.config = {
+  directConnect: true,
   framework: 'jasmine',
   baseUrl: 'http://automationpractice.com/index.php',
-  seleniumAddress: 'http://localhost:4444/wd/hub',
+/*   seleniumAddress: 'http://localhost:4444/wd/hub', */
   specs: ['./tests/registration/registration.spec.js',
     './tests/home/home.spec.js',
     './tests/login/login.spec.js',
@@ -31,11 +32,11 @@ exports.config = {
         displaySpecDuration: true
       }
     }));
-    jasmine.getEnv().addReporter(
+    /* jasmine.getEnv().addReporter(
       new Jasmine2HtmlReporter({
         savePath: 'target/screenshots'
       })
-    )
+    ) */
   },
 
   jasmineNodeOpts: {

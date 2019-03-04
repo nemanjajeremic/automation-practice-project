@@ -45,25 +45,34 @@ describe('My store - cart functionality', function () {
         /*   expect(cart.shoppingCartQuantity.getText()).toEqual('1'); */
     });
 
-    it('Add to cart and checkout', function () {
+    fit('Add to cart and checkout', async function () {
         browser.get(browser.baseUrl);
-        login.signOutButton.click();
+     /*    login.signOutButton.click(); */
         home.signInButton.click();
         login.logIn();
         browser.get(browser.baseUrl);
         cart.addToCart(5);
         global.waitUntilVisible(cart.cartModal, 30000);
         cart.cartModalProceedToCheckoutButton.click();
-        global.waitUntilVisible(cart.cartProceedToCheckoutButton, 3000);
+        browser.sleep(2000);
+        cart.cartProceedToCheckoutButton1.click();
+     /*    global.waitUntilVisible(cart.cartProceedToCheckoutButton, 30000);
         cart.cartProceedToCheckoutButton.click();
+        global.waitUntilVisible(cart.cartProceedToCheckoutButton, 30000);
+        cart.cartProceedToCheckoutButton.click(); */
     });
 
-    fit('Quick view functionality', function() {
+    it('Quick view - add to cart', function() {
+
+        //quick view window is an iFrame
         browser.get(browser.baseUrl);
         cart.openQuickView(5);
-        global.waitUntilVisible(cart.quickViewAddToCartButton, 20000);
+        browser.sleep(1000);
+        browser.switchTo().frame(element(by.css('iframe[class="fancybox-iframe"]')).getWebElement());
         cart.quickViewAddToCartButton.click();
-        browser.sleep(2000);
-    });
+        browser.switchTo().defaultContent();
+        browser.sleep(3000);
+        cart.cartModalContinueShoppingButton.click();
+    }); 
         
 })

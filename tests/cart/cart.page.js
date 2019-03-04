@@ -8,8 +8,9 @@ let shoppingCart = function () {
     this.cartItems = element.all(by.css('tr[class*="cart_item"]'));
     this.viewShoppingCart = element(by.css('a[title="View my shopping cart"]'));
     this.productRows = element.all(by.css('tr[class*="cart_item"]'));
-    this.cartProceedToCheckoutButton = element(by.css('a[class="button btn btn-default standard-checkout button-medium"]'));
-    this.quickViewAddToCartButton = element(by.css('button[class="exclusive"]'));
+    /*     this.cartProceedToCheckoutButton = element(by.css('a[class="button btn btn-default standard-checkout button-medium"]')); */
+    this.cartProceedToCheckoutButton1 = element(by.css('a[class*="button btn btn-default standard-checkout button-medium"]'));
+    this.quickViewAddToCartButton = element(by.css('p[id="add_to_cart"] button'));
 
     this.deleteCartItem = function (productRef) {
         this.productRows.each(async function (productRow) {
