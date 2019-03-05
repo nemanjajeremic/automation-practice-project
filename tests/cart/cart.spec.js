@@ -3,7 +3,7 @@ let globalPage = require('../global/global.page.js');
 let loginPage = require('../login/login.page.js');
 let homePage = require('../home/home.page.js');
 
-describe('My store - cart functionality', function () {
+describe('My store - cart functionality |', function () {
     /*    let EC = ExpectedConditions; */
     browser.ignoreSynchronization = true;
     let cart = new shoppingCart();
@@ -11,16 +11,62 @@ describe('My store - cart functionality', function () {
     let login = new loginPage();
     let global = new globalPage();
 
-    it('Add product to cart and continue shopping', function () {
+    fit('Add one item to cart and continue shopping', function () {
         browser.get(browser.baseUrl);
-        cart.addToCart(5);
+        cart.addToCart('Blouse');
         global.waitUntilVisible(cart.cartModal, 30000);
         cart.cartModalContinueShoppingButton.click();
+        cart.addToCart('Printed Chiffon Dress');
+        global.waitUntilVisible(cart.cartModal, 30000);
+        cart.cartModalContinueShoppingButton.click();
+        cart.addToCart('Printed Summer Dress');
+        global.waitUntilVisible(cart.cartModal, 30000);
+        cart.cartModalContinueShoppingButton.click();
+        browser.sleep(3000);
         expect(cart.shoppingCartQuantity.getText()).toEqual('1');
     });
 
+    it('Increase and decrease quantity of the item in cart', function () {
+        cart.viewShoppingCart.click();
+        cart.increaseItemQuantity('Blouse')
+        browser.sleep(2000);
+        cart.checkItemQuantity('Blouse');
+        browser.sleep(2000);
+        cart.decreaseItemQuantity('Blouse')
+        browser.sleep(2000);
+        cart.increaseItemQuantity('Blouse')
+        browser.sleep(2000);
+        cart.checkItemQuantity('Blouse');
+        browser.sleep(3000);
+
+    });
+
+    /*   fit('Add item(s) to the cart, close the browser and reopen the same site', async function () {
+          browser.get(browser.baseUrl);
+          global.waitUntilVisible(home.bestsellersButton, 30000)
+          cart.addToCart('Blouse');
+          global.waitUntilVisible(cart.cartModal, 30000);
+          cart.cartModalContinueShoppingButton.click();
+       
+      }); */
+
+    fit('remove all items from the cart', function () {
+      
+        cart.viewShoppingCart.click();
+        global.waitUntilVisible(cart.cartTrashIcons.first(), 30000)
+        cart.removeAllItems();
+        browser.sleep(2000);
+        expect(cart.shoppingCartQuantity.getText()).toEqual('empty');
+    });
+
+    //TODO
+    /*     Add multiple items of different types 
+        Remove all items from the cart 
+        Click on an item in the cart
+        Add item(s) to the cart, close the browser and reopen the same site */
+
     it('Shopping cart modal closes after clicking on "continue shopping" button', function () {
-        cart.addToCart(5);
+        cart.addToCart('Blouse');
         global.waitUntilVisible(cart.cartModal, 30000);
         cart.cartModalContinueShoppingButton.click();
         browser.sleep(500);
@@ -30,39 +76,41 @@ describe('My store - cart functionality', function () {
     it('Remove product from cart', function () {
 
         browser.get(browser.baseUrl);
-        cart.addToCart(5);
+        cart.addToCart('Blouse');
+
         global.waitUntilVisible(cart.cartModal, 30000);
         cart.cartModalContinueShoppingButton.click();
-        cart.addToCart(4);
+        cart.addToCart('Printed Chiffon Dress');
         global.waitUntilVisible(cart.cartModal, 30000);
         cart.cartModalContinueShoppingButton.click();
         cart.viewShoppingCart.click();
-        cart.deleteCartItem('SKU : demo_6');
-       /*  if (login.signOutButton.isDisplayed()) {
-            login.signOutButton.click();
-        } */
+        cart.deleteCartItem('Blouse');
+        browser.sleep(10000);
+        /*  if (login.signOutButton.isDisplayed()) {
+             login.signOutButton.click();
+         } */
 
         /*   expect(cart.shoppingCartQuantity.getText()).toEqual('1'); */
     });
 
-    fit('Add to cart and checkout', async function () {
+    it('Add to cart and checkout', async function () {
         browser.get(browser.baseUrl);
-     /*    login.signOutButton.click(); */
-        home.signInButton.click();
-        login.logIn();
+        /*    login.signOutButton.click(); */
+        /*   home.signInButton.click();
+          login.logIn(); */
         browser.get(browser.baseUrl);
-        cart.addToCart(5);
+        cart.addToCart('Blouse');
         global.waitUntilVisible(cart.cartModal, 30000);
         cart.cartModalProceedToCheckoutButton.click();
         browser.sleep(2000);
         cart.cartProceedToCheckoutButton1.click();
-     /*    global.waitUntilVisible(cart.cartProceedToCheckoutButton, 30000);
-        cart.cartProceedToCheckoutButton.click();
-        global.waitUntilVisible(cart.cartProceedToCheckoutButton, 30000);
-        cart.cartProceedToCheckoutButton.click(); */
+        /*    global.waitUntilVisible(cart.cartProceedToCheckoutButton, 30000);
+           cart.cartProceedToCheckoutButton.click();
+           global.waitUntilVisible(cart.cartProceedToCheckoutButton, 30000);
+           cart.cartProceedToCheckoutButton.click(); */
     });
 
-    it('Quick view - add to cart', function() {
+    it('Quick view - add to cart', function () {
 
         //quick view window is an iFrame
         browser.get(browser.baseUrl);
@@ -73,6 +121,6 @@ describe('My store - cart functionality', function () {
         browser.switchTo().defaultContent();
         browser.sleep(3000);
         cart.cartModalContinueShoppingButton.click();
-    }); 
-        
+    });
+
 })

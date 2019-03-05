@@ -2,7 +2,8 @@
 let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 let Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
-exports.config = {
+exports.config = {/* 
+  restartBrowserBetweenTests: true, */
   directConnect: true,
   framework: 'jasmine',
   baseUrl: 'http://automationpractice.com/index.php',
