@@ -15,7 +15,7 @@ describe('My store - cart functionality ', function () {
 
     it('Add one item multiple times', function () {
         browser.get(browser.baseUrl);
-        global.waitUntilVisible(home.bestsellersButton);
+        browser.sleep(2000);
 
         for (let index = 0; index < 3; index++) {
             cart.addToCart('Blouse');

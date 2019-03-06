@@ -4,6 +4,7 @@ let homePage = function () {
     this.searchButton = element(by.css('button[class*="button-search"]'));
     this.alertWarning = element(by.css('p[class="alert alert-warning"]'));
     this.bestsellersButton = element(by.css('a[class="blockbestsellers"]'));
+    this.dressesButton = element(by.css('ul ul li a[title="Dresses"]'));
 
     this.homepageTabs = element.all(by.css('ul[id="home-page-tabs"] li'));
     this.bestSellerTab = this.homepageTabs.get(1)
