@@ -17,7 +17,7 @@ describe('My store - login page', function () {
         browser.get(browser.baseUrl);
         home.signInButton.click();
         login.createAccountButton.click();
-        browser.sleep(3000);
+         global.waitUntilVisible(login.createAccountEmailError, 30000);
         expect(login.createAccountEmailError.isDisplayed()).toBe(true);
     });
 

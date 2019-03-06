@@ -4,6 +4,7 @@ let shoppingCart = function () {
     this.cartModalContinueShoppingButton = element(by.css('span[class*="continue btn btn-default button exclusive-medium"]'));
     this.cartModalProceedToCheckoutButton = element(by.css('a[title="Proceed to checkout"]'));
     this.shoppingCartQuantity = element(by.css('div[class="shopping_cart"] span[class*="ajax_cart_quantity"'));
+    this.shoppingCartQuantityNoProduct = element(by.css('div[class="shopping_cart"] span[class="ajax_cart_no_product"]'));
     this.productContainers = element.all(by.css('div[class*="product-container"]'));
     this.cartItems = element.all(by.css('tr[class*="cart_item"]'));
     this.viewShoppingCart = element(by.css('a[title="View my shopping cart"]'));
@@ -20,6 +21,15 @@ let shoppingCart = function () {
             let deleteButton = await productRow.element(by.css('i[class*="icon-trash"]'));
             if (productName === cartItemName) {
                 deleteButton.click();
+            }
+        });
+    }
+
+    this.clickOnItem = function (productName) {
+        this.productRows.each(async function (productRow) {
+            let cartItem = await productRow.element(by.css('p[class="product-name"] a'));
+            if (productName === await cartItem.getText()) {
+                cartItem.click();
             }
         });
     }
@@ -44,11 +54,15 @@ let shoppingCart = function () {
         });
     }
 
-    this.checkItemQuantity = function (productName) {
+    this.checkItemQuantity = function (productName, noOfProducts) {
+        let currentRow;
         this.productRows.each(async function (productRow) {
-            quantityValue = await productRow.element(by.css('input[class="cart_quantity_input form-control grey"]')).getAttribute('value');
-            expect(await quantityValue).toEqual('2');
-            await console.log(quantityValue)
+            let cartItemName = await productRow.element(by.css('p[class="product-name"] a')).getText();
+            if (productName === cartItemName) {
+                currentRow = productRow;
+            }
+            quantityValue = await currentRow.element(by.css('input[class="cart_quantity_input form-control grey"]')).getAttribute('value');
+            expect(await quantityValue).toEqual(noOfProducts);
         });
     }
 
