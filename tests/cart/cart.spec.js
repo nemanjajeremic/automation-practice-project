@@ -4,7 +4,7 @@ let loginPage = require('../login/login.page.js');
 let homePage = require('../home/home.page.js');
 let productPage = require('../product/product.page.js');
 
-describe('My store - cart functionality ', function () {
+fdescribe('My store - cart functionality ', function () {
     /*    let EC = ExpectedConditions; */
     browser.ignoreSynchronization = true;
     let cart = new shoppingCart();
@@ -15,18 +15,10 @@ describe('My store - cart functionality ', function () {
 
     it('Add one item multiple times', function () {
         browser.get(browser.baseUrl);
-        browser.sleep(2000);
-
-        for (let index = 0; index < 3; index++) {
-            cart.addToCart('Blouse');
-            global.waitUntilVisible(cart.cartModal, 30000);
-            cart.cartModalContinueShoppingButton.click();
-        }
+        cart.addMultipleProducts('Blouse', 3, global.waitUntilVisible);
     });
 
     it('remove all items from the cart', function () {
-        cart.viewShoppingCart.click();
-        global.waitUntilVisible(cart.cartTrashIcons.first(), 30000)
         cart.removeAllItems();
         browser.sleep(2000);
         browser.get(browser.baseUrl)
@@ -80,7 +72,7 @@ describe('My store - cart functionality ', function () {
         expect(cart.cartModal.isDisplayed()).toBe(false);
     });
 
-    it('Remove product from cart', async function () {
+    it('Remove product from cart', function () {
 
         browser.get(browser.baseUrl);
         cart.addToCart('Blouse');
@@ -92,11 +84,11 @@ describe('My store - cart functionality ', function () {
         cart.viewShoppingCart.click();
         cart.deleteCartItem('Blouse');
         browser.sleep(2000);
-        expect(cart.shoppingCartQuantity.getText()).toBe('1');
-        
+        expect(cart.shoppingCartQuantity.getText()).toBe('2');
+
     });
 
-    fit('Add to cart and checkout', function () {
+    it('Add to cart and checkout', function () {
         browser.get(browser.baseUrl);
         cart.addToCart('Blouse');
         global.waitUntilVisible(cart.cartModal, 30000);

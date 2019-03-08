@@ -1,4 +1,6 @@
 let registrationPage = function () {
+   let firstNameValue = 'Nemanja';
+   let lastNameValue = 'Jeremic';
 
    //personal info
    this.radioGenderMale = element(by.id('uniform-id_gender1'));
@@ -24,7 +26,30 @@ let registrationPage = function () {
    this.inputAddressAlias = element(by.id('alias'));
 
    this.submitRegistrationButton = element(by.id('submitAccount'));
-   this.randomEmailValue = `nemanja${Math.floor(Math.random()*90000) + 1000000}@nemanja.com`;
+   this.email = `nemanja${Math.floor(Math.random()*90000) + 1000000}@nemanja.com`;
+
+   this.enterUserData = function () {
+      this.radioGenderMale.click();
+      this.inputFirstname.sendKeys(firstNameValue);
+      this.inputLastName.sendKeys(lastNameValue);
+      this.inputPassword.sendKeys('nemanja123');
+      this.calendarDay.sendKeys('22');
+      this.calendarMonth.sendKeys('July');
+      this.calendarYear.sendKeys('1991');
+      this.checkboxNewsletter.click();
+      this.checkboxPromotions.click();
+      //enter address info
+      this.inputAddressFirstname.sendKeys(firstNameValue);
+      this.inputAddressLastName.sendKeys(lastNameValue);
+      this.inputAddress.sendKeys('KK 65');
+      this.inputAddressCity.sendKeys('BG');
+      this.inputAddressState.sendKeys('Alabama');
+      this.inputAddressZip.sendKeys('00000');
+      this.inputAddressCountry.sendKeys('United States');
+      this.inputAddressMobilePhone.sendKeys('111222333');
+      this.inputAddressAlias.sendKeys('Main Address');
+
+   }
 
 }
 

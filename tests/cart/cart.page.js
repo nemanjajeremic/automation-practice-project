@@ -14,6 +14,29 @@ let shoppingCart = function () {
     this.itemQuantity = element.all(by.css('input[class="cart_quantity_input form-control grey"]'));
     this.cartTrashIcons = element.all(by.css('a[class="cart_quantity_delete"]'));
 
+    this.addToCart = function (productName) {
+        let currentItem;
+        this.productContainers.each(async function (item) {
+            let itemName = await item.element(by.css('a[class="product-name"]')).getText();
+            if (productName === itemName) {
+                currentItem = item;
+                browser.actions().mouseMove(currentItem).perform();
+                let addToCartButton = await currentItem.element(by.css('a[class="button ajax_add_to_cart_button btn btn-default"]'));
+                addToCartButton.click();
+
+            }
+        })
+
+    }
+
+    this.addMultipleProducts = function (productName, amount, callback) {
+        for (let index = 0; index < amount; index++) {
+            this.addToCart(productName);
+            callback(this.cartModal, 30000);
+            this.cartModalContinueShoppingButton.click();
+        }
+    }
+
     this.deleteCartItem = function (productName) {
         this.productRows.each(async function (productRow) {
             let cartItemName = await productRow.element(by.css('p[class="product-name"] a')).getText();
@@ -66,24 +89,11 @@ let shoppingCart = function () {
     }
 
     this.removeAllItems = function () {
+        this.viewShoppingCart.click();
+        /*  global.waitUntilVisible(cart.cartTrashIcons.first(), 30000) */
         this.cartTrashIcons.each(async function (trashIcon) {
             trashIcon.click();
         })
-    }
-
-    this.addToCart = function (productName) {
-        let currentItem;
-        this.productContainers.each(async function (item) {
-            let itemName = await item.element(by.css('a[class="product-name"]')).getText();
-            if (productName === itemName) {
-                currentItem = item;
-                browser.actions().mouseMove(currentItem).perform();
-                let addToCartButton = await currentItem.element(by.css('a[class="button ajax_add_to_cart_button btn btn-default"]'));
-                addToCartButton.click();
-
-            }
-        })
-
     }
 
     this.openQuickView = function (productIndex) {
@@ -97,6 +107,7 @@ let shoppingCart = function () {
         currentProduct.element(by.css('a[class="quick-view"]')).click();
     }
 
+    //TODO - ???
     this.findItemInCart = function (productName) {
         let x = false;
         this.productRows.each(async function (productRow) {

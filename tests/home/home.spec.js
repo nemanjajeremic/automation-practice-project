@@ -23,9 +23,6 @@ describe('My store - home page', function () {
         expect(home.bestSellerTab.getAttribute('class')).toEqual('active');
     });
 
-    /* it('Slider functionality', async function () {
-       console.log()
-
-    }); */
+        //TODO - check if slider is chaning background on clicking next/previous button
 
 })
