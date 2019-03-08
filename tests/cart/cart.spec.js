@@ -55,6 +55,7 @@ describe('My store - cart functionality ', function () {
         browser.sleep(2000);
         cart.increaseItemQuantity('Blouse') // increased to 2 products
         browser.sleep(3000);
+        //assertion is in the following method
         cart.checkItemQuantity('Blouse', '2');
 
     });
@@ -68,7 +69,7 @@ describe('My store - cart functionality ', function () {
         global.waitUntilVisible(product.productName);
         expect(product.productName.getText()).toEqual('Blouse');
 
-    }); 
+    });
 
     it('Shopping cart modal closes after clicking on "continue shopping" button', function () {
         browser.get(browser.baseUrl);
@@ -79,11 +80,10 @@ describe('My store - cart functionality ', function () {
         expect(cart.cartModal.isDisplayed()).toBe(false);
     });
 
-    it('Remove product from cart', function () {
+    it('Remove product from cart', async function () {
 
         browser.get(browser.baseUrl);
         cart.addToCart('Blouse');
-
         global.waitUntilVisible(cart.cartModal, 30000);
         cart.cartModalContinueShoppingButton.click();
         cart.addToCart('Printed Chiffon Dress');
@@ -91,25 +91,17 @@ describe('My store - cart functionality ', function () {
         cart.cartModalContinueShoppingButton.click();
         cart.viewShoppingCart.click();
         cart.deleteCartItem('Blouse');
-        browser.sleep(10000);
-        //TODO - add assertion to this block
+        browser.sleep(2000);
+        expect(cart.shoppingCartQuantity.getText()).toBe('1');
+        
     });
 
-    it('Add to cart and checkout', async function () {
-        browser.get(browser.baseUrl);
-        /*    login.signOutButton.click(); */
-        /*   home.signInButton.click();
-          login.logIn(); */
+    fit('Add to cart and checkout', function () {
         browser.get(browser.baseUrl);
         cart.addToCart('Blouse');
         global.waitUntilVisible(cart.cartModal, 30000);
         cart.cartModalProceedToCheckoutButton.click();
-        browser.sleep(2000);
         cart.cartProceedToCheckoutButton1.click();
-        /*    global.waitUntilVisible(cart.cartProceedToCheckoutButton, 30000);
-           cart.cartProceedToCheckoutButton.click();
-           global.waitUntilVisible(cart.cartProceedToCheckoutButton, 30000);
-           cart.cartProceedToCheckoutButton.click(); */
     });
 
     it('Quick view - add to cart', function () {

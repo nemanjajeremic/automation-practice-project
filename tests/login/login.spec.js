@@ -38,8 +38,6 @@ describe('My store - login page', function () {
         login.loginEmailInput.sendKeys(emailAddressCredential);
         login.loginPasswordInput.sendKeys(passwordCredential);
         login.signInButton.click();
-        //TODO
-        //put pageheading into account page object
         expect(login.pageHeading.getText()).toEqual('MY ACCOUNT');
     });
 
