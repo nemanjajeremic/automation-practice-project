@@ -1,15 +1,12 @@
 let searchPage = require('./search.page');
-let homePage = require('../home/home.page');
-let globalPage = require('../global/global.page');
 
-describe('My store - login page', function () {
+describe('My store - search page', function () {
     browser.ignoreSynchronization = true;
     let search = new searchPage();
-    let global = new globalPage();
-    let home = new homePage();
 
     it('Open category', function () {
-        browser.get('http://automationpractice.com/index.php?id_category=8&controller=category');
+        browser.get(browser.baseUrl);
+        search.dressesButton.click();
         browser.sleep(3000);
         expect(search.categoryName.getText()).toEqual('Dresses');
     });

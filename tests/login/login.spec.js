@@ -12,6 +12,8 @@ describe('My store - login page', function () {
     
     it('Go to login page', function () {
         browser.get(browser.baseUrl);
+        login.signOutButton.click();
+        browser.sleep(2000);
         home.signInButton.click();
         expect(login.pageHeading.getText()).toEqual('AUTHENTICATION');
 

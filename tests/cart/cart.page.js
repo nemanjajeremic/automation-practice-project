@@ -14,7 +14,7 @@ let shoppingCart = function () {
     this.itemQuantity = element.all(by.css('input[class="cart_quantity_input form-control grey"]'));
     this.cartTrashIcons = element.all(by.css('a[class="cart_quantity_delete"]'));
 
-    this.addToCart = function (productName) {
+    this.addToCart = function (productName, callback) {
         let currentItem;
         this.productContainers.each(async function (item) {
             let itemName = await item.element(by.css('a[class="product-name"]')).getText();
@@ -27,11 +27,14 @@ let shoppingCart = function () {
             }
         })
 
-    }
+        callback(this.cartModal, 30000);
+        this.cartModalContinueShoppingButton.click();
 
+    }
+    // TODO - fix
     this.addMultipleProducts = function (productName, amount, callback) {
         for (let index = 0; index < amount; index++) {
-            this.addToCart(productName);
+            this.addToCart(productName, callback);
             callback(this.cartModal, 30000);
             this.cartModalContinueShoppingButton.click();
         }
@@ -84,7 +87,7 @@ let shoppingCart = function () {
                 currentRow = productRow;
             }
             quantityValue = await currentRow.element(by.css('input[class="cart_quantity_input form-control grey"]')).getAttribute('value');
-            expect(await quantityValue).toEqual(noOfProducts);
+            return quantityValue;
         });
     }
 

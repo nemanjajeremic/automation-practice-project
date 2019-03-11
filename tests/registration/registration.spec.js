@@ -25,8 +25,7 @@ describe('My store - registration', function () {
         global.waitUntilVisible(registration.radioGenderMale, 15000);
         registration.enterUserData();
         registration.submitRegistrationButton.click();
-        browser.sleep(3000);
-        login.signOutButton.click();
+        expect(login.pageHeading.getText()).toEqual('MY ACCOUNT');
     });
 
 })

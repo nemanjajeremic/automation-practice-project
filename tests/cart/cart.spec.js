@@ -1,7 +1,5 @@
 let shoppingCart = require('./cart.page.js');
 let globalPage = require('../global/global.page.js');
-let loginPage = require('../login/login.page.js');
-let homePage = require('../home/home.page.js');
 let productPage = require('../product/product.page.js');
 
 fdescribe('My store - cart functionality ', function () {
@@ -9,32 +7,25 @@ fdescribe('My store - cart functionality ', function () {
     browser.ignoreSynchronization = true;
     let cart = new shoppingCart();
     let product = new productPage();
-    let home = new homePage();
-    let login = new loginPage();
     let global = new globalPage();
-
+    
     it('Add one item multiple times', function () {
         browser.get(browser.baseUrl);
         cart.addMultipleProducts('Blouse', 3, global.waitUntilVisible);
+        expect(cart.shoppingCartQuantity.getText()).toBe('3');
     });
 
     it('remove all items from the cart', function () {
+        browser.get(browser.baseUrl);
         cart.removeAllItems();
         browser.sleep(2000);
-        browser.get(browser.baseUrl)
         expect(cart.shoppingCartQuantityNoProduct.isDisplayed()).toBe(true);
     });
 
     it('Add different items to cart and continue shopping', function () {
         browser.get(browser.baseUrl);
-        cart.addToCart('Blouse');
-        global.waitUntilVisible(cart.cartModal, 30000);
-        cart.cartModalContinueShoppingButton.click();
-        browser.sleep(2000);
-        cart.addToCart('Printed Chiffon Dress');
-        global.waitUntilVisible(cart.cartModal, 30000);
-        cart.cartModalContinueShoppingButton.click();
-        browser.sleep(3000);
+        cart.addToCart('Blouse', global.waitUntilVisible);
+        cart.addToCart('Printed Chiffon Dress', global.waitUntilVisible);
         expect(cart.shoppingCartQuantity.getText()).toEqual('2');
     });
 
@@ -42,13 +33,12 @@ fdescribe('My store - cart functionality ', function () {
         cart.viewShoppingCart.click();
         cart.increaseItemQuantity('Blouse') // product already in cart, increased to 2 products
         browser.sleep(2000);
-        browser.sleep(2000);
         cart.decreaseItemQuantity('Blouse') // decreased to 1 product 
         browser.sleep(2000);
         cart.increaseItemQuantity('Blouse') // increased to 2 products
         browser.sleep(3000);
         //assertion is in the following method
-        cart.checkItemQuantity('Blouse', '2');
+        cart.checkItemQuantity('Blouse');
 
     });
 
