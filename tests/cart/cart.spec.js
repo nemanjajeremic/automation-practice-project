@@ -4,7 +4,7 @@ let loginPage = require('../login/login.page.js');
 let homePage = require('../home/home.page.js');
 let productPage = require('../product/product.page.js');
 
-fdescribe('My store - cart functionality ', function () {
+describe('My store - cart functionality ', function () {
     /*    let EC = ExpectedConditions; */
     browser.ignoreSynchronization = true;
     let cart = new shoppingCart();
@@ -15,6 +15,7 @@ fdescribe('My store - cart functionality ', function () {
 
     it('Add one item multiple times', function () {
         browser.get(browser.baseUrl);
+        global.waitUntilVisible(home.bestsellersButton, 20000);
         cart.addMultipleProducts('Blouse', 3, global.waitUntilVisible);
     });
 
@@ -41,12 +42,8 @@ fdescribe('My store - cart functionality ', function () {
     it('Increase and decrease quantity of the item in cart', function () {
         cart.viewShoppingCart.click();
         cart.increaseItemQuantity('Blouse') // product already in cart, increased to 2 products
-        browser.sleep(2000);
-        browser.sleep(2000);
         cart.decreaseItemQuantity('Blouse') // decreased to 1 product 
-        browser.sleep(2000);
         cart.increaseItemQuantity('Blouse') // increased to 2 products
-        browser.sleep(3000);
         //assertion is in the following method
         cart.checkItemQuantity('Blouse', '2');
 
@@ -56,7 +53,6 @@ fdescribe('My store - cart functionality ', function () {
         browser.get(browser.baseUrl);
         cart.viewShoppingCart.click();
         console.log('waiting to click on item')
-        browser.sleep(5000);
         cart.clickOnItem('Blouse');
         global.waitUntilVisible(product.productName);
         expect(product.productName.getText()).toEqual('Blouse');
@@ -90,14 +86,27 @@ fdescribe('My store - cart functionality ', function () {
 
     it('Add to cart and checkout', function () {
         browser.get(browser.baseUrl);
+        global.waitUntilVisible(home.bestsellersButton, 20000);
+        login.signOutButton.click();
         cart.addToCart('Blouse');
         global.waitUntilVisible(cart.cartModal, 30000);
         cart.cartModalProceedToCheckoutButton.click();
         cart.cartProceedToCheckoutButton1.click();
+        login.logIn();
+        global.waitUntilVisible(cart.addressCheckoutButton, 30000);
+        cart.addressCheckoutButton.click();
+        global.waitUntilVisible(cart.shippingCheckoutButton, 30000);
+        cart.shippingCheckbox.click();
+        cart.shippingCheckoutButton.click();
+        global.waitUntilVisible(cart.paymentByWireButton, 30000);
+        cart.paymentByWireButton.click();
+        cart.paymentConfirmOrder.click();
+        global.waitUntilVisible(cart.orderConfirmationMessage, 20000);
+        expect(cart.orderConfirmationMessage.getText()).toContain('Your order on My Store is complete');
+        browser.sleep(3000);
     });
 
     it('Quick view - add to cart', function () {
-
         //quick view window is an iFrame
         browser.get(browser.baseUrl);
         cart.openQuickView(5);

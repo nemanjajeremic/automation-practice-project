@@ -13,6 +13,12 @@ let shoppingCart = function () {
     this.quickViewAddToCartButton = element(by.css('p[id="add_to_cart"] button'));
     this.itemQuantity = element.all(by.css('input[class="cart_quantity_input form-control grey"]'));
     this.cartTrashIcons = element.all(by.css('a[class="cart_quantity_delete"]'));
+    this.addressCheckoutButton = element(by.css('button[name="processAddress"]'));
+    this.shippingCheckbox = element(by.css('input[id="cgv"]'));
+    this.shippingCheckoutButton = element(by.css('button[name="processCarrier"]'));
+    this.paymentByWireButton = element(by.css('a[class="bankwire"]'));
+    this.paymentConfirmOrder = element(by.partialButtonText('I confirm my order'));
+    this.orderConfirmationMessage = element(by.css('p[class="cheque-indent"]'));
 
     this.addToCart = function (productName) {
         let currentItem;
@@ -23,13 +29,13 @@ let shoppingCart = function () {
                 browser.actions().mouseMove(currentItem).perform();
                 let addToCartButton = await currentItem.element(by.css('a[class="button ajax_add_to_cart_button btn btn-default"]'));
                 addToCartButton.click();
-
             }
         })
 
     }
 
     this.addMultipleProducts = function (productName, amount, callback) {
+        browser.sleep(1000);
         for (let index = 0; index < amount; index++) {
             this.addToCart(productName);
             callback(this.cartModal, 30000);
@@ -64,6 +70,7 @@ let shoppingCart = function () {
                 increaseQuantityButton.click();
             }
         });
+        browser.sleep(3000);
     }
 
     this.decreaseItemQuantity = function (productName) {
@@ -74,6 +81,7 @@ let shoppingCart = function () {
                 decreaseQuantityButton.click();
             }
         });
+        browser.sleep(3000);
     }
 
     this.checkItemQuantity = function (productName, noOfProducts) {

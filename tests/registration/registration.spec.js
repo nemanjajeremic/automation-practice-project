@@ -20,7 +20,7 @@ describe('My store - registration', function () {
     });
 
     it('Create account - happy flow', function () {
-        login.emailAdressInput.sendKeys(registration.email);
+        login.emailAddressInput.sendKeys(registration.email);
         login.createAccountButton.click();
         global.waitUntilVisible(registration.radioGenderMale, 15000);
         registration.enterUserData();
