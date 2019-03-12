@@ -23,6 +23,6 @@ describe('My store - home page', function () {
         expect(home.bestSellerTab.getAttribute('class')).toEqual('active');
     });
 
-        //TODO - check if slider is changing background on clicking next/previous button
+        //TODO - check if slider is chaning background on clicking next/previous button
 
 })

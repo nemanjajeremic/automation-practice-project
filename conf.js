@@ -29,7 +29,7 @@ exports.config = {
     jasmine.getEnv().addReporter(new SpecReporter({
       spec: {
 
-        displayStacktrace: true,
+        displayStacktrace: false,
         displayFailuresSummary: true,
         displayFailuredSpec: true,
         displaySuiteNumber: true,
